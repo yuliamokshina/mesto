@@ -1,0 +1,10 @@
+.group__items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 25px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-left: 21px;
+}
