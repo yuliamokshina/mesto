@@ -16,14 +16,14 @@ function closePopup() {
     console.log('close');
 }
 
-function handleFormSubmit (evt) {
+function handleFormSubmit(evt) {
     evt.preventDefault();
     profileTitle.textContent = popupInputName.value;
     profileSubtitle.textContent = popupInputInfo.value;
-    closePopup();                                      
+    closePopup();
 }
 
-popup.addEventListener('submit', handleFormSubmit); 
+popup.addEventListener('submit', handleFormSubmit);
 profileButton.addEventListener('click', openPopup);
 popupButtonClose.addEventListener('click', closePopup);
 

@@ -26,5 +26,8 @@
     line-height: 22px;
     width: 270px;
     align-items: start;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }

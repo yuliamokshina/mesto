@@ -3,25 +3,22 @@
   font-style:  normal;
   font-weight: 400;
   font-display: swap;
-  src: url("fonts/InterWeb/Inter-Regular.woff2") format("woff2"),
-       url("fonts/InterWeb/Inter-Regular.woff") format("woff");
+  src: url("Inter-Regular.woff2?v=3.19") format("woff2"),
+       url("Inter-Regular.woff?v=3.19") format("woff");
 }
-
 @font-face {
   font-family: 'Inter';
   font-style:  normal;
-  font-weight: 500;
+  font-weight: 700;
   font-display: swap;
-  src: url("fonts/InterWeb/Inter-Medium.woff2") format("woff2"),
-       url("fonts/InterWeb/Inter-Medium.woff") format("woff");
+  src: url("Inter-Medium.woff2?v=3.19") format("woff2"),
+       url("Inter-Medium.woff?v=3.19") format("woff");
 }
-
 @font-face {
   font-family: 'Inter';
   font-style:  normal;
   font-weight: 900;
   font-display: swap;
-  src: url("fonts/InterWeb/Inter-Black.woff2") format("woff2"),
-       url("fonts/InterWeb/Inter-Black.woff") format("woff");
+  src: url("Inter-Black.woff2?v=3.19") format("woff2"),
+       url("Inter-Black.woff?v=3.19") format("woff");
 }
-

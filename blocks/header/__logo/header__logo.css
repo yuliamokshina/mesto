@@ -1,9 +1,9 @@
 .header__logo {
-  height: 24.4px;
+  height: 24px;
   width: 103.74px;
   padding-top: 0;
   padding-right: 0;
-  padding-bottom: 31.6px;
+  padding-bottom: 32px;
   padding-left: 27px;
   margin: 0;
 }
@@ -12,8 +12,6 @@
     .header__logo {
       height: 33px;
       width: 142px;
-      padding-top: 0;
-      padding-right: 0;
       padding-bottom: 41px;
       padding-left: 0;
   }
