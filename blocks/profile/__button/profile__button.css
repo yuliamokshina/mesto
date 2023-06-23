@@ -20,5 +20,6 @@
     align-items: center;
     width: 150px;
     background-image: url(../../../images/profileButton880.svg);
+    /* не получилось пользовтся одной картинкой т.к картинка не растягивается(сохраняет свои пропорции)*/
   }
 }

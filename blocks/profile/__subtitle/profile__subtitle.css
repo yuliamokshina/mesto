@@ -18,16 +18,10 @@
 @media screen and (min-width: 880px) {
   .profile__subtitle {
     margin-top: 16px;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
     display: flex;
     font-size: 18px;
     line-height: 22px;
     width: 270px;
     align-items: start;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
   }
 }

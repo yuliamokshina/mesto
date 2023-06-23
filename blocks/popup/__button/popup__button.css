@@ -1,7 +1,6 @@
 .popup__button {
   background: transparent;
   border: none;
-  background-image: url(../../../images/submitButton320.svg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 238px;
@@ -18,7 +17,6 @@
   .popup__button {
     margin-top: 48px;
     padding: 0;
-    background-image: url(../../../images/submitButton880.svg);
     width: 358px;
   }
 }
