@@ -6,8 +6,12 @@
   background-size: contain;
   cursor: pointer;
   margin-top: 36px;
-  background-image: url(../../../images/profileButton320.svg);
-
+  background-image: url(../../../images/vector.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+  border: 2px solid white;
+  border-radius: 2px;
+  background-position: center;
 }
 
 .profile__button:hover {
@@ -19,7 +23,7 @@
     margin: 0;
     align-items: center;
     width: 150px;
-    background-image: url(../../../images/profileButton880.svg);
-    /* не получилось пользовтся одной картинкой т.к картинка не растягивается(сохраняет свои пропорции)*/
+    background-image: url(../../../images/vector.svg);
+    background-size: 22px 22px;
   }
 }
