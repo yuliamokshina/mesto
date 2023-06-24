@@ -3,7 +3,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  margin-top: 14px;
+  margin-top: 10px;
   margin-left: 0;
   margin-right: 0;
   margin-bottom: 0;
@@ -21,7 +21,7 @@
     display: flex;
     font-size: 18px;
     line-height: 22px;
-    width: 270px;
+    width: 336px;
     align-items: start;
   }
 }
