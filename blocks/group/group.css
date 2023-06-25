@@ -6,7 +6,7 @@
   margin: 0 auto 0;
 }
 
-@media screen and (min-width: 880px) {
+@media screen and (min-width: 1024px) {
   .group {
     grid-template-columns: repeat(3, 282px);
     column-gap: 17px;
@@ -14,7 +14,7 @@
     justify-content: center;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 879px){
+@media screen and (min-width: 768px) and (max-width: 1023px){
   .group {
     grid-template-columns: repeat(2, 282px);
     column-gap: 17px;
