@@ -3,7 +3,7 @@
   width: 282px;
   background-color: transparent;
   cursor: pointer;
-  margin-top: 36px;
+  margin-top: 32px;
   background-image: url(../../../images/vector.svg);
   background-repeat: no-repeat;
   background-size: 16px 16px;
@@ -21,7 +21,6 @@
     margin: 0;
     align-items: center;
     width: 150px;
-    background-image: url(../../../images/vector.svg);
     background-size: 22px 22px;
   }
 }
