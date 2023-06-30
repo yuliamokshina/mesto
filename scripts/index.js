@@ -4,8 +4,8 @@ const popupImage = document.querySelector('.popup-image');
 const closeImg = popupImage.querySelector('.popup-image__button-close');
 const popupInputName = popup.querySelector('.popup__input_data_name');
 const popupInputInfo = popup.querySelector('.popup__input_info_name');
-const popupInputDataNameAdd = popupAdd.querySelector('.popup__input_data_name_add');
-const popupInputUrlNameAdd = popupAdd.querySelector('.popup__input_url_name_add');
+const popupInputDataNameAdd = popupAdd.querySelector('.popup__input_edit_image-name');
+const popupInputUrlNameAdd = popupAdd.querySelector('.popup__input_edit_image-url');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
