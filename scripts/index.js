@@ -15,7 +15,7 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const profileButtonEdit = document.querySelector('.profile__button-edit');
 //после открытия
-const popupProfile = document.querySelector('.popup__profile');
+const popupProfile = document.querySelector('.popup_type_profile');
 const popupInputName = popupProfile.querySelector('.popup__input_data_name');
 const popupInputInfo = popupProfile.querySelector('.popup__input_info_name');
 const popupProfileBC = popupProfile.querySelector('.popup__button-close');
@@ -26,15 +26,15 @@ const popupProfileBC = popupProfile.querySelector('.popup__button-close');
 //до открытия
 const profileButtonAdd = document.querySelector('.profile__button')
 //после открытия
-const popupAdd = document.querySelector('.popup__add');
+const popupAdd = document.querySelector('.popup_type_add');
 const popupInputDataNameAdd = popupAdd.querySelector('.popup__input_data_name-add');
 const popupInputUrlNameAdd = popupAdd.querySelector('.popup__input_url-add');
 const popupAddBC = popupAdd.querySelector('.popup__button-close');
 
 //Переменные для 3 попапа
 const popupImage = document.querySelector('.popup__image');
-const popupImagePhoto = popupImage.querySelector('.popup__image_photo');
-const popupImageTitle = popupImage.querySelector('.popup__image_title');
+const popupImagePhoto = popupImage.querySelector('.popup__image-photo');
+const popupImageTitle = popupImage.querySelector('.popup__image-title');
 const closeImg = popupImage.querySelector('.popup__button-close');
 const popupImageBC = popupImage.querySelector('.popup__button-close');
 

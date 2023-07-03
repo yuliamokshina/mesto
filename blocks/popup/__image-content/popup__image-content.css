@@ -1,4 +1,4 @@
-.popup__image_content {
+.popup__image-content {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (min-width: 880px) {
-  .popup__image_content {
+  .popup__image-content {
     max-height: 562px;
     max-width: 816px;
     padding: 0;
