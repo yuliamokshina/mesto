@@ -1,139 +1,182 @@
-const popup = document.querySelector('.popup');
-const popupAdd = document.querySelector('.popup-add');
-const popupImage = document.querySelector('.popup-image');
-const closeImg = popupImage.querySelector('.popup-image__button-close');
-const popupInputName = popup.querySelector('.popup__input_data_name');
-const popupInputInfo = popup.querySelector('.popup__input_info_name');
-const popupInputDataNameAdd = popupAdd.querySelector('.popup-add__input_data_name');
-const popupInputUrlNameAdd = popupAdd.querySelector('.popup-add__input_url');
+
+//Переменная группы (контейнер с карточками)
+
+const group = document.querySelector('.group');
+
+//Переменные шаблона
+
+const cardTemplate = document.querySelector('#template-element');
+
+
+//Переменные для 1 попапа
+
+//до открытия
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
+const profileButtonEdit = document.querySelector('.profile__button-edit');
+//после открытия
+const popupProfile = document.querySelector('.popup__profile');
+const popupInputName = popupProfile.querySelector('.popup__input_data_name');
+const popupInputInfo = popupProfile.querySelector('.popup__input_info_name');
+const popupProfileBC = popupProfile.querySelector('.popup__button-close');
 
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+//Переменные для 2 попапа
+
+//до открытия
+const profileButtonAdd = document.querySelector('.profile__button')
+//после открытия
+const popupAdd = document.querySelector('.popup__add');
+const popupInputDataNameAdd = popupAdd.querySelector('.popup__input_data_name-add');
+const popupInputUrlNameAdd = popupAdd.querySelector('.popup__input_url-add');
+const popupAddBC = popupAdd.querySelector('.popup__button-close');
+
+//Переменные для 3 попапа
+const popupImage = document.querySelector('.popup__image');
+const popupImagePhoto = popupImage.querySelector('.popup__image_photo');
+const popupImageTitle = popupImage.querySelector('.popup__image_title');
+const closeImg = popupImage.querySelector('.popup__button-close');
+const popupImageBC = popupImage.querySelector('.popup__button-close');
+
+//--------------------------------------------------------------------------------------------------------
+
+//Цикл для авто добавления карточек из массива
 
 initialCards.forEach(value => {
-  addCard(value.name, value.link);
+  renderCard(createCard(value));
 })
 
-//первый попап открытие и закрытие
+// универсальные функции закрытия и открытия попапов
 
-function openPopup() {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
-  popupInputInfo.value = profileSubtitle.textContent;
-  popupInputName.value = profileTitle.textContent;
+
 }
 
-function closePopup() {
+function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
-//второй попап закрытие и открытие
-function closePopupAdd() {
-  popupAdd.classList.remove('popup-add_opened');
-}
 
-function openAddPopup() {
-  popupAdd.classList.add('popup-add_opened');
-  popupInputDataNameAdd.value = "Название";
-  popupInputUrlNameAdd.value = "Ссылка на картинку";
-}
+// 1 попап открытие и закрытие
 
-//третий попап закрытие и открытие
-
-function openPopupImage() {
-  //popup.classList.add('popup-image_opened');
+function openProfilPopap() {
   popupInputInfo.value = profileSubtitle.textContent;
   popupInputName.value = profileTitle.textContent;
+  openPopup(popupProfile);
 }
 
-function closePopupImage() {
-  popup.classList.remove('popup-image_opened');
+function closeProfilPopap() {
+  closePopup(popupProfile);
 }
 
-function openFullImage(name, link) {
-  //вот эта строчка (снизу) разварачивает картинку 
-  popupImage.classList.add('popup-image_opened');
-  popupImage.querySelector('.popup-image__photo').src = link;
-  popupImage.querySelector('.popup-image__title').textContent = name;
+// 2 попап закрытие и открытие
+
+function openAddPopup() {
+  openPopup(popupAdd);
 }
 
-function addCard(name, link) {
-  const cardTemplate = document.querySelector('#template-element').content;
-  const card = cardTemplate.querySelector('.group__element').cloneNode(true);
+function closeAddPopup() {
+  closePopup(popupAdd);
+}
+
+// 3 попап закрытие и открытие
+
+// В аргумент передаем теперь (назвали его cardData) объект состоящий из двух полей (link и name) 
+function openImagePopup(cardData) {
+  popupImagePhoto.src = cardData.link;
+  popupImagePhoto.alt = cardData.name;
+  popupImageTitle.textContent = cardData.name;
+  openPopup(popupImage);
+}
+
+function closeImagePopup() {
+closePopup(popupImage);
+}
+
+// Создание карточки
+// В аргумент передаем теперь (назвали его cardData) объект состоящий из двух полей (link и name) 
+function createCard(cardData) {
+  //Клонируем шаблон темплейта и записываем его в card
+  const card = cardTemplate.content.cloneNode(true);
+
+  //находим и записываем в переменные остальные элемента шаблона
   const groupImage = card.querySelector('.group__image');
-  groupImage.setAttribute('src', link)
-  groupImage.setAttribute('alt', name)
-  //тут нажатие на картинку
-  //нажимаем
-  groupImage.addEventListener('click', (evt) => {
-    openFullImage(name, link);
+  const groupTitle = card.querySelector('.group__title');
+  const groupButton = card.querySelector('.group__button');
+  const groupButtonDelete = card.querySelector('.group__button-delete');
+  //устанавливаем атрибуты для картинки
+  groupImage.setAttribute('src', cardData.link)
+  groupImage.setAttribute('alt', cardData.name)
+
+  //слушатель открытия картинки ставим на саму картинку
+  groupImage.addEventListener('click', () => {
+    openImagePopup(cardData);
   })
-
-  closeImg.addEventListener('click', () => {
-    popupImage.classList.remove('popup-image_opened');
-  });
-
-  card.querySelector('.group__title').textContent = name;
-  card.querySelector('.group__button').addEventListener('click', evt => {
+  // устанавливаем название
+  groupTitle.textContent = cardData.name;
+  // слушатель на лайк
+  groupButton.addEventListener('click', evt => {
+    // evt - переменная абстрактного события события
+    // target - конкрутная цель , тут это кнопка лайка (groupButton)
+    // toggle - значит что лайк будет переключаться в оба состояния (активен и нет) 
     evt.target.classList.toggle('group__button_active');
   });
-  card.querySelector('.group__button-delete').addEventListener('click', () => {
-    card.remove();
+  // слушатель на корзинку удалить
+  groupButtonDelete.addEventListener('click', () => {
+    /*groupButtonDelete.closest('.group__element') - значит ,
+    что по кнопке удалить мы находим родителья (карточку целиком), т.е переходим на уровень повыше*/
+    //remove - удаляем карточку целиком
+    groupButtonDelete.closest('.group__element').remove();
   });
-  document.querySelector('.group').append(card);
+  return card;
 }
 
-popup.addEventListener('submit', evt => {
+// Добавление карточки в контейнер
+/* Поменяли append на prepend,
+ чтобы добавлять карточки в начало контейнера, а не в конец*/
+function renderCard(card) {
+  return group.prepend(card);
+}
+
+//----------------------------------------------------------------------------
+// устанавливаем слушателей
+
+// слушатель для кнопки открыть 1 попапа
+profileButtonEdit.addEventListener('click', openProfilPopap);
+
+// Слушатель для кнопки сохранить 1 попапа
+popupProfile.addEventListener('submit', evt => {
   evt.preventDefault();
   profileTitle.textContent = popupInputName.value;
   profileSubtitle.textContent = popupInputInfo.value;
-  closePopup();
+  closeProfilPopap();
 });
 
+
+// слушатель для кнопки открыть 2 попапа
+profileButtonAdd.addEventListener('click', openAddPopup);
+
+
+//Слушатель для кнопки сохранить 2 попапа
 popupAdd.addEventListener('submit', evt => {
   evt.preventDefault();
-  addCard(popupInputDataNameAdd.value, popupInputUrlNameAdd.value);
-  closePopupAdd();
+  const name = popupInputDataNameAdd.value;
+  const link = popupInputUrlNameAdd.value;
+  renderCard(createCard({name, link}));
+  closeAddPopup();
 });
 
 
-popupImage.addEventListener('submit', evt => {
-  evt.preventDefault();
-  addCard(popupInputDataNameAdd.value, popupInputUrlNameImage.value);
-  closePopupImage();
-});
 
-document.querySelector('.profile__button-edit').addEventListener('click', openPopup);
-popup.querySelector('.popup__button-close').addEventListener('click', closePopup);
-document.querySelector('.profile__button').addEventListener('click', openAddPopup);
-popupAdd.querySelector('.popup-add__button-close').addEventListener('click', closePopupAdd);
-popupImage.querySelector('.popup-image__button-close').addEventListener('click', closePopupImage)
+//устанавливаем слушателя на закрытие всех попапов сразу
+document.querySelectorAll('.popup__close').forEach(button => {
+  const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
+  button.addEventListener('click', () => closePopup(buttonsPopup)); // закрыли попап
+});  
+
+
+
 
 
 
