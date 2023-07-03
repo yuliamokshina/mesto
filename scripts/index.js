@@ -32,7 +32,7 @@ const popupInputUrlNameAdd = popupAdd.querySelector('.popup__input_url-add');
 const popupAddBC = popupAdd.querySelector('.popup__button-close');
 
 //Переменные для 3 попапа
-const popupImage = document.querySelector('.popup__image');
+const popupImage = document.querySelector('.popup_type_image');
 const popupImagePhoto = popupImage.querySelector('.popup__image-photo');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
 const closeImg = popupImage.querySelector('.popup__button-close');

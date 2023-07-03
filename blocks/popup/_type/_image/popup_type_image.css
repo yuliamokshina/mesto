@@ -1,4 +1,4 @@
-.popup__image {
+.popup_type_image {
   display: flex;
   background-color: rgba(0, 0, 0, 0.9);
   justify-content: center;
