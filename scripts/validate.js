@@ -1,4 +1,4 @@
-//почему то кнопка сохранить изначально не серая, делала по вебинару
+
 
 function showError(inputElement, errorElement, config) {
     inputElement.classList.add(config.inputErrorClass);
