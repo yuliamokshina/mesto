@@ -146,7 +146,7 @@ function createCard(cardData) {
   groupButtonDelete.addEventListener('click', () => {
     /*groupButtonDelete.closest('.group__element') - значит ,
     что по кнопке удалить мы находим родителья (карточку целиком), т.е переходим на уровень повыше*/
-    //remove - удаляем карточку целиком
+    //remove - удаляем карточку целико
     groupButtonDelete.closest('.group__element').remove();
   });
   return card;
