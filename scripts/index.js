@@ -28,6 +28,7 @@ const popupProfileBC = popupProfile.querySelector('.popup__button-close');
 const profileButtonAdd = document.querySelector('.profile__button')
 //после открытия
 const popupAdd = document.querySelector('.popup_type_add');
+const popupAddForm = popupAdd.querySelector('.popup__form');
 const popupInputDataNameAdd = popupAdd.querySelector('.popup__input_data_name-add');
 const popupInputUrlNameAdd = popupAdd.querySelector('.popup__input_url-add');
 const popupAddBC = popupAdd.querySelector('.popup__button-close');
@@ -48,15 +49,31 @@ initialCards.forEach(value => {
 })
 
 // универсальные функции закрытия и открытия попапов
+let popupTarget;
+
 
 function openPopup(popup) {
+  if (popup.querySelector('.popup__form')) {
+    const formElement = popup.querySelector('.popup__form');
+    cleanInputError(formElement);
+    cleanButtonState(formElement);
+  }
+  popupTarget = popup;
+  document.addEventListener('keydown', escapeKeyHendler);
   popup.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  popupTarget = popup;
+  document.removeEventListener('keydown', escapeKeyHendler);
 }
 
+function escapeKeyHendler(evt) {
+  if(evt.key === 'Escape') {
+    closePopup(popupTarget);
+  }
+}
 // 1 попап открытие и закрытие
 
 function openProfilPopup() {
@@ -72,10 +89,12 @@ function closeProfilPopup() {
 // 2 попап закрытие и открытие
 
 function openAddPopup() {
-  openPopup(popupAdd);
+  popupAddForm.reset();
+    openPopup(popupAdd);
 }
 
 function closeAddPopup() {
+  
   closePopup(popupAdd);
 }
 
@@ -161,17 +180,13 @@ popupProfileForm.addEventListener('submit', evt => {
 profileButtonAdd.addEventListener('click', openAddPopup);
 
 
-
-
-
 //Слушатель для кнопки сохранить 2 попапа
 popupAdd.addEventListener('submit', evt => {
   evt.preventDefault();
   const name = popupInputDataNameAdd.value;
   const link = popupInputUrlNameAdd.value;
   renderCard(createCard({ name, link }));
-  popupInputDataNameAdd.value = "";
-  popupInputUrlNameAdd.value = "";
+  popupAddForm.reset();
   closeAddPopup();
 });
 
@@ -179,46 +194,17 @@ popupAdd.addEventListener('submit', evt => {
 document.querySelectorAll('.popup__close').forEach(button => {
   const buttonsPopup = button.closest('.popup'); // нашли родителя с нужным классом
   button.addEventListener('click', () => closePopup(buttonsPopup)); // закрыли попап
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === "Escape") {
-      closePopup(buttonsPopup);
-    }
-  });
 });
 
 
-
 //открытие попапа с профилем кликом по оверлею
-const popupOverlayProfile = document.querySelectorAll(".popup_type_profile");
-
-
-popupOverlayProfile[0].onclick = function (event) {
-  target = event.target;
-  if (target == popupOverlayProfile[0]) {
-    closePopup(target);
-  };
-};
-
-//открытие попапа с добавлением карточки кликом по оверлею
-const popupOverlayAdd = document.querySelectorAll(".popup_type_add");
-
-
-popupOverlayAdd[0].onclick = function (event) {
-  target = event.target;
-  if (event.target == popupOverlayAdd[0]) {
-    closePopup(target);
-  };
-};
-
-//открытие попапа с картинкой кликом по оверлею
-const popupOverlayImage = document.querySelectorAll(".popup_type_image");
-
-
-popupOverlayImage[0].onclick = function (event) {
-  target = event.target;
-  if (event.target == popupOverlayImage[0]) {
-    closePopup(target);
-  };
-};
-
-
+const popupOverlay = document.querySelectorAll(".popup");
+popupOverlay.forEach(popup => {
+  popup.onclick = event => {
+    target = event.target;
+    console.log(target);
+    if (target == popup) {
+      closePopup(popup);
+    };
+  }
+})

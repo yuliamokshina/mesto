@@ -1,15 +1,24 @@
 
 
+
+
+
+
+
+
 function showError(inputElement, errorElement, config) {
     inputElement.classList.add(config.inputErrorClass);
+    // Если инпут не валиден выводи сообещение об ошибке в элемент ошибки и добавляем класс невалидности
     errorElement.textContent = inputElement.validationMessage;
 }
 
+// В противном случае удаляем класс и очищаем сообщение+
 function hideError(inputElement, errorElement, config) {
     inputElement.classList.remove(config.inputErrorClass);
-    errorElement.textContent = inputElement.validationMessage;
+    errorElement.textContent = ' ';
 }
 
+// При наступлении события ввода в инпут проверяем его валидность
 function chekInputValidity(inputElement, formElement, config) {
     inputElement.setCustomValidity("");
 
@@ -23,16 +32,18 @@ function chekInputValidity(inputElement, formElement, config) {
     }
 }
 
+
+//отключенная кнопка
 function disabledButton(buttonElement, config) {
-    buttonElement.disabled = "disabled";
+  buttonElement.disabled = "disabled";
     buttonElement.classList.add(config.inactiveButtonClass);
 }
-
+//включенная кнопка
 function enabledButton(buttonElement, config) {
     buttonElement.disabled = false;
     buttonElement.classList.remove(config.inactiveButtonClass);
 }
-
+//блокирует отправку
 function toggleButtonState(buttonElement, isActive, config) {
     if (!isActive) {
         disabledButton(buttonElement, config);
@@ -40,8 +51,10 @@ function toggleButtonState(buttonElement, isActive, config) {
         enabledButton(buttonElement, config);
     }
 }
-
+//устанавливает все обработчики
 function setEventListener(formElement, config) {
+
+  // Внутри каждой формы ищет инпуты
     const inputList = formElement.querySelectorAll(config.inputSelector);
     const submitButtonElement = formElement.querySelector(
         config.submitButtonSelector
@@ -49,6 +62,7 @@ function setEventListener(formElement, config) {
 
     toggleButtonState(submitButtonElement, formElement.checkValidity(), config);
 
+// Перебираем список инпутов конткретной формы и вешаем на каждый инпут обработчик события input
     [...inputList].forEach(function (inputElement) {
         inputElement.addEventListener("input", function () {
             toggleButtonState(
@@ -59,12 +73,13 @@ function setEventListener(formElement, config) {
             chekInputValidity(inputElement, formElement, config);
         });
     });
-
+// Вешаем обработчик события submit на каждую форму в переборе
     formElement.addEventListener("submit", (evt) => {
         evt.preventDefault();
         if (!formElement.checkValidity()) return;
     });
 }
+// Находим все формы и перебираем их
 
 function enableValidation(config) {
     const formsList = document.querySelectorAll(config.formSelector);
@@ -72,6 +87,11 @@ function enableValidation(config) {
     [...formsList].forEach(function (formElement) {
         setEventListener(formElement, config);
     });
+}
+
+function cleanButtonState(formElement) {
+    const buttonElement = formElement.querySelector('.popup__button');
+    disabledButton(buttonElement, config);
 }
 
 const config = {
@@ -83,3 +103,11 @@ const config = {
 };
 
 enableValidation(config);
+
+function cleanInputError (formElement) {
+    const inputElement = formElement.querySelectorAll(config.inputSelector);
+    inputElement.forEach(input => {
+        const errorElement = formElement.querySelector(`#${input.name}-error`);
+        hideError(input, errorElement, config)
+    })
+}
