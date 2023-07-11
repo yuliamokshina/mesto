@@ -53,11 +53,11 @@ let popupTarget;
 
 
 function openPopup(popup) {
-  if (popup.querySelector('.popup__form')) {
+  /*if (popup.querySelector('.popup__form')) {
     const formElement = popup.querySelector('.popup__form');
     cleanInputError(formElement);
     cleanButtonState(formElement);
-  }
+  }*/
   popupTarget = popup;
   document.addEventListener('keydown', escapeKeyHendler);
   popup.classList.add('popup_opened');
@@ -77,6 +77,11 @@ function escapeKeyHendler(evt) {
 // 1 попап открытие и закрытие
 
 function openProfilPopup() {
+  //очитска профиля попап профиль от ошибок
+  const formElement = popupProfile.querySelector('.popup__form');
+  cleanInputError(formElement);
+  cleanButtonState(formElement);
+
   popupInputInfo.value = profileSubtitle.textContent;
   popupInputName.value = profileTitle.textContent;
   openPopup(popupProfile);
@@ -89,6 +94,11 @@ function closeProfilPopup() {
 // 2 попап закрытие и открытие
 
 function openAddPopup() {
+  //очистка форм попап эдд от ошибок
+  const formElement = popupAdd.querySelector('.popup__form');
+  cleanInputError(formElement);
+  cleanButtonState(formElement);
+
   popupAddForm.reset();
     openPopup(popupAdd);
 }
