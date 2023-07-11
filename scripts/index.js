@@ -53,11 +53,6 @@ let popupTarget;
 
 
 function openPopup(popup) {
-  /*if (popup.querySelector('.popup__form')) {
-    const formElement = popup.querySelector('.popup__form');
-    cleanInputError(formElement);
-    cleanButtonState(formElement);
-  }*/
   popupTarget = popup;
   document.addEventListener('keydown', escapeKeyHendler);
   popup.classList.add('popup_opened');
