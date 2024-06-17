@@ -1,12 +1,12 @@
-
+import './pages/index.css'
+import { initialCards } from './scripts/cards';
+import { createCard } from './scripts/card';
+import { closePopup, openPopup } from './scripts/modal';
 //Переменная группы (контейнер с карточками)
 
 const group = document.querySelector('.group');
-
 //Переменные шаблона
-
-const cardTemplate = document.querySelector('#template-element');
-
+const selectorTemplate = document.querySelector('#template-element');
 
 //Переменные для 1 попапа
 
@@ -19,9 +19,6 @@ const popupProfile = document.querySelector('.popup_type_profile');
 const popupProfileForm = popupProfile.querySelector('.popup__form');
 const popupInputName = popupProfile.querySelector('.popup__input_data_name');
 const popupInputInfo = popupProfile.querySelector('.popup__input_info_name');
-const popupProfileBC = popupProfile.querySelector('.popup__button-close');
-
-
 //Переменные для 2 попапа
 
 //до открытия
@@ -31,42 +28,29 @@ const popupAdd = document.querySelector('.popup_type_add');
 const popupAddForm = popupAdd.querySelector('.popup__form');
 const popupInputDataNameAdd = popupAdd.querySelector('.popup__input_data_name-add');
 const popupInputUrlNameAdd = popupAdd.querySelector('.popup__input_url-add');
-const popupAddBC = popupAdd.querySelector('.popup__button-close');
+
 
 //Переменные для 3 попапа
 const popupImage = document.querySelector('.popup_type_image');
 const popupImagePhoto = popupImage.querySelector('.popup__image-photo');
 const popupImageTitle = popupImage.querySelector('.popup__image-title');
-const closeImg = popupImage.querySelector('.popup__button-close');
-const popupImageBC = popupImage.querySelector('.popup__button-close');
-let target;
 //--------------------------------------------------------------------------------------------------------
 
 //Цикл для авто добавления карточек из массива
 
+export function renderCard(card) {
+  return group.prepend(card);
+}
+
 initialCards.forEach(value => {
-  renderCard(createCard(value));
+  renderCard(createCard(value, selectorTemplate, openImagePopup));
 })
 
 // универсальные функции закрытия и открытия попапов
-let popupTarget;
-
-
-function openPopup(popup) {
-  popupTarget = popup;
-  document.addEventListener('keydown', escapeKeyHendler);
-  popup.classList.add('popup_opened');
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  popupTarget = popup;
-  document.removeEventListener('keydown', escapeKeyHendler);
-}
-
 function escapeKeyHendler(evt) {
-  if(evt.key === 'Escape') {
-    closePopup(popupTarget);
+  const popup = document.querySelector('.popup_opened');
+  if(evt.key === 'Escape' && popup) {
+    closePopup(popup);
   }
 }
 // 1 попап открытие и закрытие
@@ -74,33 +58,19 @@ function escapeKeyHendler(evt) {
 function openProfilPopup() {
   //очитска профиля попап профиль от ошибок
   const formElement = popupProfile.querySelector('.popup__form');
-  cleanInputError(formElement);
-  cleanButtonState(formElement);
-
   popupInputInfo.value = profileSubtitle.textContent;
   popupInputName.value = profileTitle.textContent;
   openPopup(popupProfile);
 }
 
-function closeProfilPopup() {
-  closePopup(popupProfile);
-}
 
 // 2 попап закрытие и открытие
 
 function openAddPopup() {
   //очистка форм попап эдд от ошибок
   const formElement = popupAdd.querySelector('.popup__form');
-  cleanInputError(formElement);
-  cleanButtonState(formElement);
-
   popupAddForm.reset();
     openPopup(popupAdd);
-}
-
-function closeAddPopup() {
-  
-  closePopup(popupAdd);
 }
 
 // 3 попап закрытие и открытие
@@ -113,86 +83,31 @@ function openImagePopup(cardData) {
   openPopup(popupImage);
 }
 
-function closeImagePopup() {
-  closePopup(popupImage);
-}
-
-// Создание карточки
-// В аргумент передаем теперь (назвали его cardData) объект состоящий из двух полей (link и name) 
-function createCard(cardData) {
-  //Клонируем шаблон темплейта и записываем его в card
-  const card = cardTemplate.content.cloneNode(true);
-
-  //находим и записываем в переменные остальные элемента шаблона
-  const groupImage = card.querySelector('.group__image');
-  const groupTitle = card.querySelector('.group__title');
-  const groupButton = card.querySelector('.group__button');
-  const groupButtonDelete = card.querySelector('.group__button-delete');
-  //устанавливаем атрибуты для картинки
-  groupImage.setAttribute('src', cardData.link)
-  groupImage.setAttribute('alt', cardData.name)
-
-  //слушатель открытия картинки ставим на саму картинку
-  groupImage.addEventListener('click', () => {
-    openImagePopup(cardData);
-  })
-
-   
-  // устанавливаем название
-  groupTitle.textContent = cardData.name;
-  // слушатель на лайк
-  groupButton.addEventListener('click', evt => {
-    // evt - переменная абстрактного события события
-    // target - конкрутная цель , тут это кнопка лайка (groupButton)
-    // toggle - значит что лайк будет переключаться в оба состояния (активен и нет) 
-    evt.target.classList.toggle('group__button_active');
-  });
-  // слушатель на корзинку удалить
-  groupButtonDelete.addEventListener('click', () => {
-    /*groupButtonDelete.closest('.group__element') - значит ,
-    что по кнопке удалить мы находим родителья (карточку целиком), т.е переходим на уровень повыше*/
-    //remove - удаляем карточку целико
-    groupButtonDelete.closest('.group__element').remove();
-  });
-  return card;
-}
-
-// Добавление карточки в контейнер
-/* Поменяли append на prepend,
- чтобы добавлять карточки в начало контейнера, а не в конец*/
-function renderCard(card) {
-  return group.prepend(card);
-}
-
 //----------------------------------------------------------------------------
 // устанавливаем слушателей
 
 // слушатель для кнопки открыть 1 попапа
 profileButtonEdit.addEventListener('click', openProfilPopup);
 
-
-
 // Слушатель для кнопки сохранить 1 попапа
 popupProfileForm.addEventListener('submit', evt => {
   evt.preventDefault();
   profileTitle.textContent = popupInputName.value;
   profileSubtitle.textContent = popupInputInfo.value;
-  closeProfilPopup();
+  closePopup(popupImage);
 });
-
 
 // слушатель для кнопки открыть 2 попапа
 profileButtonAdd.addEventListener('click', openAddPopup);
-
 
 //Слушатель для кнопки сохранить 2 попапа
 popupAdd.addEventListener('submit', evt => {
   evt.preventDefault();
   const name = popupInputDataNameAdd.value;
   const link = popupInputUrlNameAdd.value;
-  renderCard(createCard({ name, link }));
+  renderCard(createCard({ name, link }, selectorTemplate, openImagePopup));
   popupAddForm.reset();
-  closeAddPopup();
+  closePopup(popupAdd);
 });
 
 //устанавливаем слушателя на закрытие всех попапов сразу
@@ -205,11 +120,11 @@ document.querySelectorAll('.popup__close').forEach(button => {
 //открытие попапа с профилем кликом по оверлею
 const popupOverlay = document.querySelectorAll(".popup");
 popupOverlay.forEach(popup => {
-  popup.onclick = event => {
-    target = event.target;
-    console.log(target);
-    if (target == popup) {
+  popup.addEventListener("mousedown",  event => {
+    if (event.target == popup) {
       closePopup(popup);
     };
-  }
-})
+  })
+});
+
+document.addEventListener('keydown', escapeKeyHendler);
